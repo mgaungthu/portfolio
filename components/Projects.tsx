@@ -5,7 +5,15 @@ import { useRef, useState } from "react";
 import { projects } from '@/lib/projects'
 import { FiExternalLink, FiGithub, FiArrowRight } from 'react-icons/fi'
 
-function ProjectCard({ title, description, image, links, technologies, index }: any) {
+interface Project {
+  title: string;
+  description: string;
+  image?: string;
+  links: { label: string; href: string }[];
+  technologies?: string[];
+}
+
+function ProjectCard({ title, description, image, links, technologies, index }: Project & { index: number }) {
   const [isHovered, setIsHovered] = useState(false);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
@@ -118,7 +126,7 @@ export default function Projects() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   // Add some sample technologies to projects if not already there
-  const enhancedProjects = projects.map(project => ({
+  const enhancedProjects: Project[] = projects.map((project: Project) => ({
     ...project,
     technologies: project.technologies || [
       "React", "Next.js", "TypeScript", "Node.js", 
