@@ -34,7 +34,7 @@ export default function Hero() {
   };
 
   // Floating particles in the background
-  const Particle = ({ style }) => (
+  const Particle = ({ style }: { style?: React.CSSProperties }) => (
     <motion.div
       className="absolute rounded-full"
       style={style}
